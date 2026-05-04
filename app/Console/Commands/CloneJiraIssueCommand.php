@@ -106,8 +106,8 @@ class CloneJiraIssueCommand extends Command
             $this->jiraService->transitionIssue($issueKey, $sourceDoneTransitionId);
             $this->jiraService->transitionIssue($newIssueKey, $newInProgressTransitionId);
 
-            $this->info("New {$jobType} issue created: {$issueKey} (Done) -> {$newIssueKey} (In Progress)");
-            $this->info('Link' . config('services.jira.base_url') . '/browse/' . $newIssueKey);
+            $this->info("New ['{$jobType}'] issue created: {$issueKey} (Done) -> {$newIssueKey} (In Progress)");
+            $this->info('Link: ' . config('services.jira.base_url') . '/browse/' . $newIssueKey);
             $this->info("Start date ({$validatedStartDateField}): {$monday} | Due date (duedate): {$friday}");
 
             return self::SUCCESS;
