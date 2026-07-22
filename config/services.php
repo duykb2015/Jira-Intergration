@@ -43,4 +43,22 @@ return [
         'start_date_field' => env('JIRA_START_DATE_FIELD', 'customfield_10010'),
     ],
 
+    'clockify' => [
+        'base_url' => env('CLOCKIFY_BASE_URL', 'https://api.clockify.me'),
+        'timeout' => (int) env('CLOCKIFY_TIMEOUT', 15),
+        'retries' => (int) env('CLOCKIFY_RETRIES', 2),
+    ],
+
+    'teamboard' => [
+        'base_url' => env('TEAMBOARD_BASE_URL'),
+        'api_token' => env('TEAMBOARD_API_TOKEN'),
+        'timeout' => (int) env('TEAMBOARD_TIMEOUT', 15),
+        'retries' => (int) env('TEAMBOARD_RETRIES', 2),
+    ],
+
+    'internal_admin' => [
+        'username' => env('INTERNAL_ADMIN_USERNAME'),
+        'password' => env('INTERNAL_ADMIN_PASSWORD'),
+    ],
+
 ];

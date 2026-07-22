@@ -46,6 +46,7 @@ class CloneJiraIssueCommand extends Command
             $jobType = $this->resolveJobType();
             $validatedStartDateField = $this->validateStartDateField($startDateField);
             $sourceIssue = $this->jiraService->getIssue($issueKey);
+            $currentUser = $this->jiraService->getCurrentUser();
             $sourceFields = $sourceIssue['fields'] ?? [];
 
             $issueTypeId = (string) ($sourceFields['issuetype']['id'] ?? '');
@@ -77,6 +78,18 @@ class CloneJiraIssueCommand extends Command
                 'duedate' => $friday,
                 $validatedStartDateField => $monday,
             ];
+
+            $assignee = Arr::first([
+                Arr::get($currentUser, 'accountId') ? ['accountId' => (string) Arr::get($currentUser, 'accountId')] : null,
+                Arr::get($currentUser, 'name') ? ['name' => (string) Arr::get($currentUser, 'name')] : null,
+                Arr::get($currentUser, 'key') ? ['key' => (string) Arr::get($currentUser, 'key')] : null,
+            ]);
+
+            if ($assignee === null) {
+                throw new RuntimeException('Current Jira user is missing assignee identifier.');
+            }
+
+            $newIssueFields['assignee'] = $assignee;
 
             if (! empty($sourceFields['labels']) && is_array($sourceFields['labels'])) {
                 $newIssueFields['labels'] = $sourceFields['labels'];

@@ -25,3 +25,6 @@ Homestead.yaml
 Thumbs.db
 .editorconfig
 composer.lock
+/public/css/*
+/public/js/*
+/public/fonts/*

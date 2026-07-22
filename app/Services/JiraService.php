@@ -28,6 +28,17 @@ class JiraService
     /**
      * @throws RequestException
      */
+    public function getCurrentUser(): array
+    {
+        return $this->http()
+            ->get('/rest/api/3/myself')
+            ->throw()
+            ->json();
+    }
+
+    /**
+     * @throws RequestException
+     */
     public function createIssue(array $fields): array
     {
         return $this->http()
